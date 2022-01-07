@@ -608,4 +608,29 @@ Compra a distancia segura
 Canal de micropagos
 *******************
 
-Por escribir.
+En esta sección aprenderemos como construir un ejemplo de implementación
+de un canal de pago. Este usa firmas criptográficas que hacen tranferencias
+repetidas de Ether entre las mismas partes de forma segura, instantanea, y 
+sin tarifas de transacción. Por ejemplo, necesitamos entender como seguir
+y verificar firmas, y configurar el canal de pagos.
+
+*******************
+Creando y verificando firmas
+*******************
+
+Imagina que Alicia quiere enviar algo de Ether a Bob, i.e. Alicia es el remitente
+y bob es el receptor.
+
+Alicia solo necesita enviar fuera de la cadena mensajes criptográficamente firmados de forma
+(e.l. vía correo electrónico) a Bob y eso es similar a las verificaciones de escritura.
+
+El contrato trabajará de la siguiente forma:
+
+    1. Alicia despliega el contrato "RecieversPays", adjuntando el suficiente Ether 
+       para cubrir los pagos que serán hechos.
+    2. Alicia autoriza el pago con un mensaje firmado por su llave privada.
+    3. Alicia enviá el mensaje criptográficamente firmado a Bob. El 
+       mensaje no necesita mantenerse privado (Se explicará porque después), y el 
+       mecanismo para enviarlo no tiene mucha importancia.
+    4. Bob reclama su pago presentando el mensaje firmado al contrato inteligente,
+       este verifica la autenticidad del mensaje y después libera los fondos.
